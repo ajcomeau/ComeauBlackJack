@@ -12,7 +12,7 @@ namespace ComeauBlackJack
 {
     public partial class BlackJackTable : Form
     {
-        Player currentPlayer = new Player("Andrew");
+        Player currentPlayer = new Player("Andrew", 1000);
         ActiveDeck currentDeck;
         public BlackJackTable()
         {
