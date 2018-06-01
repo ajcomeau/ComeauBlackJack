@@ -12,11 +12,26 @@ namespace ComeauBlackJack
 {
     public partial class BlackJackTable : Form
     {
+        Player currentPlayer = new Player("Andrew");
+        ActiveDeck currentDeck;
         public BlackJackTable()
         {
             InitializeComponent();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            currentDeck = new ActiveDeck(SourceDeck);
 
+            lstHand.Items.Clear();
+
+            foreach(string c in currentDeck.currentDeck)
+            {
+                lstHand.Items.Add(c);
+            }
+
+            lstHand.Sorted = true;
+            label1.Text = "Cards: " + lstHand.Items.Count;
+        }
     }
 }
