@@ -9,35 +9,44 @@ namespace ComeauBlackJack
 {
     class ActiveDeck
     {
+        // The available and used cards are maintained in
+        // string Lists that store the keys referencing the 
+        // cards in the source ImageList.
         private List<string> cDeck = new List<string>();
         private List<string> cUsed = new List<string>();
         private bool cUseJokers;
 
         public List<string> currentDeck
         {
+            // Available cards.
             get { return cDeck; }
             set { cDeck = value; }
         }
 
         public List<string> DiscardPile
         {
+            // Used cards.
             get { return cUsed; }
             set { cUsed = value; }
         }
 
         public bool UseJokers
         {
+            // Indicates if game should use jokers.
             get { return cUseJokers; }
             set { cUseJokers = value; }
         }
 
         public ActiveDeck(ImageList SourceDeck)
         {
-            ShuffleDeck(SourceDeck, false);
+            // Constructor to obtain new deck.
+            ShuffleDeck(SourceDeck);
         }
 
         public static int GetCardValue(string Key)
         {
+            // Parse the key value for the card (i.e. 3_clubs.bmp)
+            // to get the value for the card.
             int returnValue = 0;
             string valuePart = "";
 
@@ -45,6 +54,8 @@ namespace ComeauBlackJack
             {
                 valuePart = Key.Substring(0, Key.IndexOf('_'));
 
+                // If it's a face card, assign a value manually.
+                // Otherwise, take the number at the front of the key value.
                 if (!int.TryParse(valuePart, out returnValue))
                 {
                     switch (valuePart.ToUpper())
@@ -75,8 +86,8 @@ namespace ComeauBlackJack
             return returnValue;
         }
 
-            public bool ShuffleDeck(ImageList NewDeck)
-            {
+        public bool ShuffleDeck(ImageList NewDeck)
+        {
             bool result = false;
             Random rand = new Random(DateTime.Now.Millisecond);
             string keyPick = "";
@@ -120,11 +131,13 @@ namespace ComeauBlackJack
 
             return result;
 
-            }
+        }
 
         public bool DealCards(int Number, Player Receiver)
         {
+            // Not completed yet.
             bool result = false;
+
             try
             {
 
@@ -138,10 +151,6 @@ namespace ComeauBlackJack
             return result;
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 
 
