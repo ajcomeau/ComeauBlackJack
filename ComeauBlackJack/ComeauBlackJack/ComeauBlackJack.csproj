@@ -53,10 +53,19 @@
       <DependentUpon>BlackJackTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerLoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerLoad.Designer.cs">
+      <DependentUpon>PlayerLoad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BlackJackTable.resx">
       <DependentUpon>BlackJackTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerLoad.resx">
+      <DependentUpon>PlayerLoad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -76,6 +85,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Scores.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

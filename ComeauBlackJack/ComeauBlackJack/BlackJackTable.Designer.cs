@@ -33,9 +33,13 @@
             this.SourceDeck = new System.Windows.Forms.ImageList(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.lstHand = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblCardsLeft = new System.Windows.Forms.Label();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLoadPlayer = new System.Windows.Forms.Button();
+            this.lblPlayerName = new System.Windows.Forms.Label();
+            this.lblScore = new System.Windows.Forms.Label();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SourceDeck
@@ -99,60 +103,93 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 360);
+            this.button1.Location = new System.Drawing.Point(12, 360);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Go";
+            this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(791, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(725, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // lstHand
+            // fileToolStripMenuItem
             // 
-            this.lstHand.FormattingEnabled = true;
-            this.lstHand.Location = new System.Drawing.Point(12, 27);
-            this.lstHand.Name = "lstHand";
-            this.lstHand.Size = new System.Drawing.Size(120, 303);
-            this.lstHand.TabIndex = 2;
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changePlayerToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
             // 
-            // label1
+            // changePlayerToolStripMenuItem
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(139, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
-            this.label1.TabIndex = 3;
+            this.changePlayerToolStripMenuItem.Name = "changePlayerToolStripMenuItem";
+            this.changePlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changePlayerToolStripMenuItem.Text = "Change &Player";
+            this.changePlayerToolStripMenuItem.Click += new System.EventHandler(this.ChangePlayer_Click);
             // 
-            // lblCardsLeft
+            // btnLoadPlayer
             // 
-            this.lblCardsLeft.AutoSize = true;
-            this.lblCardsLeft.Location = new System.Drawing.Point(142, 316);
-            this.lblCardsLeft.Name = "lblCardsLeft";
-            this.lblCardsLeft.Size = new System.Drawing.Size(0, 13);
-            this.lblCardsLeft.TabIndex = 4;
+            this.btnLoadPlayer.Location = new System.Drawing.Point(579, 89);
+            this.btnLoadPlayer.Name = "btnLoadPlayer";
+            this.btnLoadPlayer.Size = new System.Drawing.Size(95, 23);
+            this.btnLoadPlayer.TabIndex = 2;
+            this.btnLoadPlayer.Text = "Change Player";
+            this.btnLoadPlayer.UseVisualStyleBackColor = true;
+            this.btnLoadPlayer.Click += new System.EventHandler(this.ChangePlayer_Click);
+            // 
+            // lblPlayerName
+            // 
+            this.lblPlayerName.AutoSize = true;
+            this.lblPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerName.Location = new System.Drawing.Point(537, 33);
+            this.lblPlayerName.Name = "lblPlayerName";
+            this.lblPlayerName.Size = new System.Drawing.Size(77, 17);
+            this.lblPlayerName.TabIndex = 3;
+            this.lblPlayerName.Text = "Playing as:";
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScore.Location = new System.Drawing.Point(537, 59);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(49, 17);
+            this.lblScore.TabIndex = 4;
+            this.lblScore.Text = "Score:";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // BlackJackTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 395);
-            this.Controls.Add(this.lblCardsLeft);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lstHand);
+            this.ClientSize = new System.Drawing.Size(725, 395);
+            this.Controls.Add(this.lblScore);
+            this.Controls.Add(this.lblPlayerName);
+            this.Controls.Add(this.btnLoadPlayer);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BlackJackTable";
             this.Text = "BlackJack";
             this.Load += new System.EventHandler(this.BlackJackTable_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,9 +200,12 @@
         private System.Windows.Forms.ImageList SourceDeck;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ListBox lstHand;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblCardsLeft;
+        private System.Windows.Forms.Button btnLoadPlayer;
+        private System.Windows.Forms.Label lblPlayerName;
+        private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changePlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

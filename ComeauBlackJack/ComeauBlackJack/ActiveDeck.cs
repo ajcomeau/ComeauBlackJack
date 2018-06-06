@@ -7,17 +7,48 @@ using System.Windows.Forms;
 
 namespace ComeauBlackJack
 {
+    // Enumeration for assigning card status.
     public enum CardAssignment
     {
-        ActiveDeck,
-        Player,
-        DiscardPile
+        ActiveDeck,   // Available to be dealt
+        Player,       // In a player's hand.
+        DiscardPile   // Played and discarded.
     }
 
+    // Class used to pass references to specific cards around.
     public class PlayingCard
     {
-        public string CardName;
-        public CardAssignment Assigned;
+        private string cCardName;
+        private Player cPlayer;
+        private CardAssignment cAssigned;
+
+        public string CardName
+        {
+            // Image key of the card, i.e. "9_Clubs.bmp"
+            get { return cCardName; }
+            set { cCardName = value; }
+        }
+
+        public CardAssignment Assigned
+        {
+            // What is the card's status?
+            get { return cAssigned; }
+            set { cAssigned = value; }
+        }
+
+        public Player PlayerAssign
+        {
+            // Which player is holding the card?
+            get { return cPlayer; }
+            set { cPlayer = value; }
+        }
+
+        public int CardValue
+        {
+            // Call to ActiveDeck function for convenience.
+            get { return ActiveDeck.GetCardValue(cCardName); }
+        }
+
     }
 
     class ActiveDeck
@@ -38,6 +69,7 @@ namespace ComeauBlackJack
         {
             get
             {
+                // Return the list of cards assigned to players.
                 List<string> returnList = new List<string>();
                 foreach(PlayingCard pCard in cCurrentDeck)
                 {
@@ -84,7 +116,6 @@ namespace ComeauBlackJack
                 }
 
                 return returnList;
-
             }
         }
 
@@ -95,10 +126,11 @@ namespace ComeauBlackJack
             set { cUseJokers = value; }
         }
 
-        public ActiveDeck(ImageList SourceDeck)
+        public ActiveDeck(ImageList SourceDeck, bool UseJokers)
         {
             // Constructor to obtain complete new deck.
             ShuffleDeck(SourceDeck);
+            cUseJokers = UseJokers;
         }
 
         public static int GetCardValue(string Key)
@@ -144,12 +176,38 @@ namespace ComeauBlackJack
             return returnValue;
         }
 
-        public bool ShuffleDeck(ImageList newDeck)
+        public void ReorderCards()
         {
-            bool result = false;
             PlayingCard pCard;
             Random rand = new Random(DateTime.Now.Millisecond);
 
+            try
+            {
+                //Shuffle the deck by repeatedly pulling out a random card
+                //and sending it to the end of the deck.
+                for (int x = 1; x <= 500; x++)
+                {
+                    pCard = cCurrentDeck[rand.Next(cCurrentDeck.Count - 1)];
+                    if (pCard.Assigned == CardAssignment.ActiveDeck)
+                    {
+                        cCurrentDeck.Remove(pCard);
+                        cCurrentDeck.Add(pCard);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public bool ShuffleDeck(ImageList newDeck)
+        {
+            // Initialize an entire new deck from ImageList.
+            bool result = false;
+            PlayingCard pCard;
+           
             cCurrentDeck.Clear();
             try
             {
@@ -160,15 +218,6 @@ namespace ComeauBlackJack
                     pCard.CardName = card;
                     cCurrentDeck.Add(pCard);
                 }
-
-                //Shuffle
-                for (int x = 1; x <= 500; x++)
-                {
-                    pCard = cCurrentDeck[rand.Next(cCurrentDeck.Count - 1)];
-                    cCurrentDeck.Remove(pCard);
-                    cCurrentDeck.Add(pCard);
-                }
-
             }
             catch (Exception ex)
             {
@@ -180,10 +229,9 @@ namespace ComeauBlackJack
 
         public bool ShuffleDeck(bool IncludePlayerHands, bool Reorder)
         {
-            // Recycle the discard pile.
+            // Reset the deck by recycling the discard pile.
             bool result = false;
             PlayingCard pCard;
-            Random rand = new Random();
 
             try
             {
@@ -200,15 +248,9 @@ namespace ComeauBlackJack
                     }
                 }
 
+                // Shuffle if necessary.
                 if (Reorder)
-                {
-                    for(int x = 1; x <= 500; x++)
-                    {
-                        pCard = cCurrentDeck[rand.Next(cCurrentDeck.Count - 1)];
-                        cCurrentDeck.Remove(pCard);
-                        cCurrentDeck.Add(pCard);
-                    }
-                }
+                    ReorderCards();
 
                 result = true;
             }
@@ -223,16 +265,18 @@ namespace ComeauBlackJack
 
         public bool Discard(PlayingCard Discarded)
         {
+            // Find a card and put it in the discard pile.
             bool result = false;
             PlayingCard deckCard;
             try
             {
+                // Search by card name.
                 deckCard = cCurrentDeck.Find(p => p.CardName == Discarded.CardName);
                 deckCard.Assigned = CardAssignment.DiscardPile;
+                deckCard.PlayerAssign = null;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
@@ -254,22 +298,28 @@ namespace ComeauBlackJack
             {             
                 if (NumberOfCards > this.RemainingCards.Count)
                 {
+                    // If there are fewer cards remaining than the number requested,
+                    // recycle the discard pile.
                     this.ShuffleDeck(false, true);
                 }
 
                 for (int x = 1; x <= NumberOfCards; x++)
                 {
+                    // For each card requested, search the deck at random
+                    // for an available card.
                     cardAvailable = false;
 
                     while (!cardAvailable)
                     {
                         deckIndex = rand.Next(cCurrentDeck.Count - 1);
                         pCard = cCurrentDeck[deckIndex];
+                        // Once a card is found, add it to the player's hand and
+                        // update its properties.
                         if(pCard.Assigned == CardAssignment.ActiveDeck & GetCardValue(pCard.CardName) > 0)
                         {
                             cardAvailable = true;
                             pCard.Assigned = CardAssignment.Player;
-                            cCurrentDeck[deckIndex] = pCard;
+                            pCard.PlayerAssign = Receiver;
                             Receiver.PlayerHand.Add(pCard);
                         }
                     }
