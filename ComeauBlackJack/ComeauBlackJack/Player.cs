@@ -10,19 +10,19 @@ using System.Drawing;
 
 namespace ComeauBlackJack
 {
-    public class Player:IEnumerable<string>
+    public class Player
     {
         // Class to store player details including the player's hand.
-        private List<string> cPlayerhand = new List<string>();
+        private List<PlayingCard> cPlayerhand = new List<PlayingCard>();
         private string cName;
         private double cBank;
 
-        public List<string> PlayerHand
+        public List<PlayingCard> PlayerHand
         {
-            // Player's current hand stored as a list of key values.
             get { return cPlayerhand; }
             set { cPlayerhand = value; }
         }
+
 
         public string PlayerName
         {
@@ -54,21 +54,31 @@ namespace ComeauBlackJack
         {
             // Function to return value of player's hand
             // anytime it's needed.
-            //TODO: Finish to account for Aces in hand.
 
             int returnValue = 0;
+            int numberOfAces = 0;
 
             try
             {
                 // For each card in the hand, call the static function
                 // GetCardValue in the ActiveDeck class and return sum.
-                foreach(string c in cPlayerhand)
+                foreach(PlayingCard c in cPlayerhand)
                 {
-                    // Count Aces as 11 unless the hand is over 10 already.
-                    if (c.ToUpper().StartsWith("ACE") && returnValue > 10)
+                    // Count Aces last.
+                    if (c.CardName.ToUpper().StartsWith("ACE"))
+                        numberOfAces++;
+                    else
+                        returnValue += ActiveDeck.GetCardValue(c.CardName);
+                }
+
+                // For each Ace, add 11 if the hand is 10 or less.
+                // Otherwise, add 1.
+                for(int x = 1; x <= numberOfAces; x++)
+                {
+                    if (returnValue > 10)
                         returnValue++;
                     else
-                        returnValue += ActiveDeck.GetCardValue(c);
+                        returnValue += 11;                    
                 }
             }
             catch (Exception ex)
@@ -89,18 +99,18 @@ namespace ComeauBlackJack
         {
             // IEnumerable function to allow iteration through
             // cards in player's hand.
-            foreach (string i in cPlayerhand)
+            foreach (PlayingCard i in cPlayerhand)
             {
-                if (i == null)
+                if (i.CardName == null)
                     break;
 
-                yield return i;
+                yield return i.CardName;
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-             return this.GetEnumerator();
-        }
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //     return this.GetEnumerator();
+        //}
     }
 }

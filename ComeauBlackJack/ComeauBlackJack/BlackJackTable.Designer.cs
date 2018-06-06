@@ -35,6 +35,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.lstHand = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblCardsLeft = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SourceDeck
@@ -130,11 +131,20 @@
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 3;
             // 
+            // lblCardsLeft
+            // 
+            this.lblCardsLeft.AutoSize = true;
+            this.lblCardsLeft.Location = new System.Drawing.Point(142, 316);
+            this.lblCardsLeft.Name = "lblCardsLeft";
+            this.lblCardsLeft.Size = new System.Drawing.Size(0, 13);
+            this.lblCardsLeft.TabIndex = 4;
+            // 
             // BlackJackTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 395);
+            this.Controls.Add(this.lblCardsLeft);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstHand);
             this.Controls.Add(this.button1);
@@ -142,6 +152,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BlackJackTable";
             this.Text = "BlackJack";
+            this.Load += new System.EventHandler(this.BlackJackTable_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,6 +165,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ListBox lstHand;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCardsLeft;
     }
 }
 

@@ -7,27 +7,85 @@ using System.Windows.Forms;
 
 namespace ComeauBlackJack
 {
+    public enum CardAssignment
+    {
+        ActiveDeck,
+        Player,
+        DiscardPile
+    }
+
+    public class PlayingCard
+    {
+        public string CardName;
+        public CardAssignment Assigned;
+    }
+
     class ActiveDeck
     {
         // The available and used cards are maintained in
         // string Lists that store the keys referencing the 
         // cards in the source ImageList.
-        private List<string> cDeck = new List<string>();
-        private List<string> cUsed = new List<string>();
+        private List<PlayingCard> cCurrentDeck = new List<PlayingCard>();
         private bool cUseJokers;
 
-        public List<string> currentDeck
+        public List<PlayingCard> CurrentDeck
+        {
+            get { return cCurrentDeck; }
+            set { cCurrentDeck = value; }
+        }
+
+        public List<string> PlayerCards
+        {
+            get
+            {
+                List<string> returnList = new List<string>();
+                foreach(PlayingCard pCard in cCurrentDeck)
+                {
+                    if(pCard.Assigned == CardAssignment.Player)
+                    {
+                        returnList.Add(pCard.CardName);
+                    }
+                }
+
+                return returnList;
+            }
+        }
+
+        public List<string> RemainingCards
         {
             // Available cards.
-            get { return cDeck; }
-            set { cDeck = value; }
+            get
+            {
+                List<string> returnList = new List<string>();
+                foreach (PlayingCard pCard in cCurrentDeck)
+                {
+                    if (pCard.Assigned == CardAssignment.ActiveDeck)
+                    {
+                        returnList.Add(pCard.CardName);
+                    }
+                }
+
+                return returnList;
+            }
         }
 
         public List<string> DiscardPile
         {
             // Used cards.
-            get { return cUsed; }
-            set { cUsed = value; }
+            get
+            {
+                List<string> returnList = new List<string>();
+                foreach (PlayingCard pCard in cCurrentDeck)
+                {
+                    if (pCard.Assigned == CardAssignment.DiscardPile)
+                    {
+                        returnList.Add(pCard.CardName);
+                    }
+                }
+
+                return returnList;
+
+            }
         }
 
         public bool UseJokers
@@ -39,7 +97,7 @@ namespace ComeauBlackJack
 
         public ActiveDeck(ImageList SourceDeck)
         {
-            // Constructor to obtain new deck.
+            // Constructor to obtain complete new deck.
             ShuffleDeck(SourceDeck);
         }
 
@@ -86,67 +144,141 @@ namespace ComeauBlackJack
             return returnValue;
         }
 
-        public bool ShuffleDeck(ImageList NewDeck)
+        public bool ShuffleDeck(ImageList newDeck)
         {
             bool result = false;
+            PlayingCard pCard;
             Random rand = new Random(DateTime.Now.Millisecond);
-            string keyPick = "";
+
+            cCurrentDeck.Clear();
+            try
+            {
+                foreach(string card in newDeck.Images.Keys)
+                {
+                    pCard = new PlayingCard();
+                    pCard.Assigned = CardAssignment.ActiveDeck;
+                    pCard.CardName = card;
+                    cCurrentDeck.Add(pCard);
+                }
+
+                //Shuffle
+                for (int x = 1; x <= 500; x++)
+                {
+                    pCard = cCurrentDeck[rand.Next(cCurrentDeck.Count - 1)];
+                    cCurrentDeck.Remove(pCard);
+                    cCurrentDeck.Add(pCard);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+        public bool ShuffleDeck(bool IncludePlayerHands, bool Reorder)
+        {
+            // Recycle the discard pile.
+            bool result = false;
+            PlayingCard pCard;
+            Random rand = new Random();
 
             try
             {
-                // Clear any cards in the discard pile.
-                DiscardPile.Clear();
-
-                // Clear the remaining cards from the active deck.
-                cDeck.Clear();
-
-                // Insert five cards at random from the source deck.
-                while(cDeck.Count < 5)
+                // Iterate through the deck and reassign cards as necessary.
+                for (int x = 0; x < cCurrentDeck.Count; x++)
                 {
-                    keyPick = NewDeck.Images.Keys[rand.Next(NewDeck.Images.Keys.Count- 1)];
-
-                    if (ActiveDeck.GetCardValue(keyPick) > 0 && !cDeck.Contains(keyPick))
+                    pCard = cCurrentDeck[x];
+                    if (pCard.Assigned != CardAssignment.ActiveDeck)
                     {
-                        cDeck.Add(keyPick);
+                        if (pCard.Assigned == CardAssignment.Player && IncludePlayerHands)
+                            pCard.Assigned = CardAssignment.ActiveDeck;
+                        else if (pCard.Assigned == CardAssignment.DiscardPile)
+                            pCard.Assigned = CardAssignment.ActiveDeck;
                     }
                 }
 
-                // Then iterate through the new deck and place each card at random in the active deck.
-                foreach (string c in NewDeck.Images.Keys)
+                if (Reorder)
                 {
-                    if (!cDeck.Contains(c) && GetCardValue(c) > 0)
+                    for(int x = 1; x <= 500; x++)
                     {
-                        cDeck.Insert(rand.Next(cDeck.Count - 1) , c);
+                        pCard = cCurrentDeck[rand.Next(cCurrentDeck.Count - 1)];
+                        cCurrentDeck.Remove(pCard);
+                        cCurrentDeck.Add(pCard);
                     }
                 }
 
                 result = true;
-
             }
             catch (Exception ex)
             {
                 result = false;
                 throw ex;
             }
+            return result;
+
+        }
+
+        public bool Discard(PlayingCard Discarded)
+        {
+            bool result = false;
+            PlayingCard deckCard;
+            try
+            {
+                deckCard = cCurrentDeck.Find(p => p.CardName == Discarded.CardName);
+                deckCard.Assigned = CardAssignment.DiscardPile;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
 
             return result;
 
         }
 
-        public bool DealCards(int Number, Player Receiver)
+        public bool DealCards(int NumberOfCards, Player Receiver)
         {
-            // Not completed yet.
+            // Deal the specified number of cards to the player.
             bool result = false;
-
+            bool cardAvailable = false;
+            int deckIndex;
+            Random rand = new Random(DateTime.Now.Millisecond);
+            PlayingCard pCard;
+            
             try
-            {
+            {             
+                if (NumberOfCards > this.RemainingCards.Count)
+                {
+                    this.ShuffleDeck(false, true);
+                }
 
+                for (int x = 1; x <= NumberOfCards; x++)
+                {
+                    cardAvailable = false;
+
+                    while (!cardAvailable)
+                    {
+                        deckIndex = rand.Next(cCurrentDeck.Count - 1);
+                        pCard = cCurrentDeck[deckIndex];
+                        if(pCard.Assigned == CardAssignment.ActiveDeck & GetCardValue(pCard.CardName) > 0)
+                        {
+                            cardAvailable = true;
+                            pCard.Assigned = CardAssignment.Player;
+                            cCurrentDeck[deckIndex] = pCard;
+                            Receiver.PlayerHand.Add(pCard);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
 
             return result;
         }
