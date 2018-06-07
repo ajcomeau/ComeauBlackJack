@@ -16,6 +16,7 @@ namespace ComeauBlackJack
         private List<PlayingCard> cPlayerhand = new List<PlayingCard>();
         private string cName;
         private double cBank;
+        private bool cDealer;
 
         public List<PlayingCard> PlayerHand
         {
@@ -36,6 +37,12 @@ namespace ComeauBlackJack
             set { cBank = value; }
         }
 
+        public bool Dealer
+        {
+            get { return cDealer; }
+            set { cDealer = value; }
+        }
+
         public Player()
         {
             // Default constructor for guest player
@@ -44,10 +51,11 @@ namespace ComeauBlackJack
             cBank = 1000;
         }
 
-        public Player(string PlayerName, double BankAmount)
+        public Player(string PlayerName, double BankAmount, bool IsDealer)
         {
             cName = PlayerName;
             cBank = BankAmount;
+            cDealer = IsDealer;
         }
 
         public int GetHandValue()
@@ -87,6 +95,24 @@ namespace ComeauBlackJack
             }
 
             return returnValue;
+        }
+
+        public void DiscardHand()
+        {
+            try
+            {
+                foreach(PlayingCard pCard in cPlayerhand)
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
         }
 
         public void SavePlayerStats()

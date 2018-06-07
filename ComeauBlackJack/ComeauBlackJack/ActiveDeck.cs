@@ -21,6 +21,7 @@ namespace ComeauBlackJack
         private string cCardName;
         private Player cPlayer;
         private CardAssignment cAssigned;
+        private bool cFaceDown;
 
         public string CardName
         {
@@ -33,7 +34,13 @@ namespace ComeauBlackJack
         {
             // What is the card's status?
             get { return cAssigned; }
-            set { cAssigned = value; }
+            set
+            {
+                cAssigned = value;
+                // If the card is not assigned to a player
+                // make sure it's face up.
+                cFaceDown = (value == CardAssignment.Player);
+            }
         }
 
         public Player PlayerAssign
@@ -49,6 +56,12 @@ namespace ComeauBlackJack
             get { return ActiveDeck.GetCardValue(cCardName); }
         }
 
+        public bool FaceDown
+        {
+            // Is the card facedown?
+            get { return cFaceDown; }
+            set { cFaceDown = value; }
+        }
     }
 
     class ActiveDeck
@@ -91,7 +104,7 @@ namespace ComeauBlackJack
                 List<string> returnList = new List<string>();
                 foreach (PlayingCard pCard in cCurrentDeck)
                 {
-                    if (pCard.Assigned == CardAssignment.ActiveDeck)
+                    if (pCard.Assigned == CardAssignment.ActiveDeck && pCard.CardValue > 0)
                     {
                         returnList.Add(pCard.CardName);
                     }
@@ -109,7 +122,7 @@ namespace ComeauBlackJack
                 List<string> returnList = new List<string>();
                 foreach (PlayingCard pCard in cCurrentDeck)
                 {
-                    if (pCard.Assigned == CardAssignment.DiscardPile)
+                    if (pCard.Assigned == CardAssignment.DiscardPile && pCard.CardValue > 0)
                     {
                         returnList.Add(pCard.CardName);
                     }
@@ -263,6 +276,30 @@ namespace ComeauBlackJack
 
         }
 
+        public bool Discard(List<PlayingCard> Discarded)
+        {
+            // Find a card and put it in the discard pile.
+            bool result = false;
+            PlayingCard deckCard;
+            try
+            {
+                foreach(PlayingCard pCard in Discarded)
+                {
+                    // Search by card name.
+                    deckCard = cCurrentDeck.Find(p => p.CardName == pCard.CardName);
+                    deckCard.Assigned = CardAssignment.DiscardPile;
+                    deckCard.PlayerAssign = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+
         public bool Discard(PlayingCard Discarded)
         {
             // Find a card and put it in the discard pile.
@@ -280,12 +317,10 @@ namespace ComeauBlackJack
                 throw ex;
             }
 
-
             return result;
-
         }
 
-        public bool DealCards(int NumberOfCards, Player Receiver)
+        public bool DealCards(int NumberOfCards, Player Receiver, bool Facedown)
         {
             // Deal the specified number of cards to the player.
             bool result = false;
@@ -320,6 +355,7 @@ namespace ComeauBlackJack
                             cardAvailable = true;
                             pCard.Assigned = CardAssignment.Player;
                             pCard.PlayerAssign = Receiver;
+                            pCard.FaceDown = Facedown;
                             Receiver.PlayerHand.Add(pCard);
                         }
                     }
