@@ -24,7 +24,6 @@ namespace ComeauBlackJack
             set { cPlayerhand = value; }
         }
 
-
         public string PlayerName
         {
             get { return cName; }
@@ -72,11 +71,15 @@ namespace ComeauBlackJack
                 // GetCardValue in the ActiveDeck class and return sum.
                 foreach(PlayingCard c in cPlayerhand)
                 {
+                    // Only count face up cards.
+                    if(!c.FaceDown)
+                    { 
                     // Count Aces last.
                     if (c.CardName.ToUpper().StartsWith("ACE"))
                         numberOfAces++;
                     else
                         returnValue += ActiveDeck.GetCardValue(c.CardName);
+                    }
                 }
 
                 // For each Ace, add 11 if the hand is 10 or less.

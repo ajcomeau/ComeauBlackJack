@@ -45,6 +45,8 @@
             this.btnDeal = new System.Windows.Forms.Button();
             this.lblDealer = new System.Windows.Forms.Label();
             this.lblPlayer = new System.Windows.Forms.Label();
+            this.lblDealerHandValue = new System.Windows.Forms.Label();
+            this.lblPlayerHandValue = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -232,11 +234,31 @@
             this.lblPlayer.TabIndex = 9;
             this.lblPlayer.Text = "(Player)";
             // 
+            // lblDealerHandValue
+            // 
+            this.lblDealerHandValue.AutoSize = true;
+            this.lblDealerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDealerHandValue.Location = new System.Drawing.Point(531, 183);
+            this.lblDealerHandValue.Name = "lblDealerHandValue";
+            this.lblDealerHandValue.Size = new System.Drawing.Size(0, 24);
+            this.lblDealerHandValue.TabIndex = 10;
+            // 
+            // lblPlayerHandValue
+            // 
+            this.lblPlayerHandValue.AutoSize = true;
+            this.lblPlayerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerHandValue.Location = new System.Drawing.Point(532, 354);
+            this.lblPlayerHandValue.Name = "lblPlayerHandValue";
+            this.lblPlayerHandValue.Size = new System.Drawing.Size(0, 24);
+            this.lblPlayerHandValue.TabIndex = 11;
+            // 
             // BlackJackTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 411);
+            this.Controls.Add(this.lblPlayerHandValue);
+            this.Controls.Add(this.lblDealerHandValue);
             this.Controls.Add(this.lblPlayer);
             this.Controls.Add(this.lblDealer);
             this.Controls.Add(this.btnDeal);
@@ -274,6 +296,8 @@
         private System.Windows.Forms.Button btnDeal;
         private System.Windows.Forms.Label lblDealer;
         private System.Windows.Forms.Label lblPlayer;
+        private System.Windows.Forms.Label lblDealerHandValue;
+        private System.Windows.Forms.Label lblPlayerHandValue;
     }
 }
 

@@ -55,6 +55,7 @@ namespace ComeauBlackJack
             int leftPos = 1;
             int topPos = 5;
             int rowCount = 1;
+            int handValue = SpecificPlayer.GetHandValue();
 
             try
             {
@@ -83,8 +84,6 @@ namespace ComeauBlackJack
                     else
                         newCard.Image = SourceDeck.Images[card.CardName];
                     
-                    
-
                     focusPanel.Controls.Add(newCard);
                     newCard.BringToFront();
 
@@ -101,6 +100,12 @@ namespace ComeauBlackJack
                         leftPos += 30;
                     }
                 }
+
+                // Update hand values.
+                if (SpecificPlayer.Dealer)
+                    lblDealerHandValue.Text = handValue.ToString();
+                else
+                    lblPlayerHandValue.Text = handValue.ToString();
             }
             catch (Exception ex)
             {
