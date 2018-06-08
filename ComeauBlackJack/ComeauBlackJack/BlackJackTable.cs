@@ -245,7 +245,6 @@ namespace ComeauBlackJack
             try
             {
                 ClearPlayerHands();
-                UpdatePlayerStats();
 
                 // If the current deck is getting low, shuffle.
                 if (currentDeck.RemainingCards.Count < 18)
@@ -388,7 +387,9 @@ namespace ComeauBlackJack
                         break;
                     default:
                         break;
-                }                  
+                }
+
+                UpdatePlayerStats();
             }
             catch (Exception ex)
             {

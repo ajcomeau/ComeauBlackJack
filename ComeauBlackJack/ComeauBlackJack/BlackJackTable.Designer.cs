@@ -140,14 +140,14 @@
             // changePlayerToolStripMenuItem
             // 
             this.changePlayerToolStripMenuItem.Name = "changePlayerToolStripMenuItem";
-            this.changePlayerToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.changePlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.changePlayerToolStripMenuItem.Text = "Change &Player";
             this.changePlayerToolStripMenuItem.Click += new System.EventHandler(this.ChangePlayer_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -164,27 +164,27 @@
             // dealToolStripMenuItem
             // 
             this.dealToolStripMenuItem.Name = "dealToolStripMenuItem";
-            this.dealToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.dealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dealToolStripMenuItem.Text = "&Deal";
             this.dealToolStripMenuItem.Click += new System.EventHandler(this.DealHand_Click);
             // 
             // hitToolStripMenuItem
             // 
             this.hitToolStripMenuItem.Name = "hitToolStripMenuItem";
-            this.hitToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.hitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hitToolStripMenuItem.Text = "&Hit";
             this.hitToolStripMenuItem.Click += new System.EventHandler(this.HitButton_Click);
             // 
             // standToolStripMenuItem
             // 
             this.standToolStripMenuItem.Name = "standToolStripMenuItem";
-            this.standToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.standToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.standToolStripMenuItem.Text = "&Stand";
             this.standToolStripMenuItem.Click += new System.EventHandler(this.StandButton_Click);
             // 
             // btnLoadPlayer
             // 
-            this.btnLoadPlayer.Location = new System.Drawing.Point(540, 79);
+            this.btnLoadPlayer.Location = new System.Drawing.Point(537, 82);
             this.btnLoadPlayer.Name = "btnLoadPlayer";
             this.btnLoadPlayer.Size = new System.Drawing.Size(95, 23);
             this.btnLoadPlayer.TabIndex = 2;
@@ -195,20 +195,22 @@
             // lblPlayerName
             // 
             this.lblPlayerName.AutoSize = true;
-            this.lblPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerName.ForeColor = System.Drawing.Color.Yellow;
             this.lblPlayerName.Location = new System.Drawing.Point(537, 33);
             this.lblPlayerName.Name = "lblPlayerName";
-            this.lblPlayerName.Size = new System.Drawing.Size(77, 17);
+            this.lblPlayerName.Size = new System.Drawing.Size(94, 19);
             this.lblPlayerName.TabIndex = 3;
             this.lblPlayerName.Text = "Playing as:";
             // 
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScore.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScore.ForeColor = System.Drawing.Color.Yellow;
             this.lblScore.Location = new System.Drawing.Point(537, 59);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(49, 17);
+            this.lblScore.Size = new System.Drawing.Size(60, 19);
             this.lblScore.TabIndex = 4;
             this.lblScore.Text = "Score:";
             // 
@@ -239,30 +241,33 @@
             // lblDealer
             // 
             this.lblDealer.AutoSize = true;
-            this.lblDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDealer.Location = new System.Drawing.Point(71, 39);
+            this.lblDealer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDealer.ForeColor = System.Drawing.Color.Yellow;
+            this.lblDealer.Location = new System.Drawing.Point(71, 36);
             this.lblDealer.Name = "lblDealer";
-            this.lblDealer.Size = new System.Drawing.Size(60, 20);
+            this.lblDealer.Size = new System.Drawing.Size(64, 19);
             this.lblDealer.TabIndex = 8;
             this.lblDealer.Text = "Dealer:";
             // 
             // lblPlayer
             // 
             this.lblPlayer.AutoSize = true;
-            this.lblPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayer.ForeColor = System.Drawing.Color.Yellow;
             this.lblPlayer.Location = new System.Drawing.Point(71, 218);
             this.lblPlayer.Name = "lblPlayer";
-            this.lblPlayer.Size = new System.Drawing.Size(62, 20);
+            this.lblPlayer.Size = new System.Drawing.Size(67, 19);
             this.lblPlayer.TabIndex = 9;
             this.lblPlayer.Text = "(Player)";
             // 
             // lblDealerHandValue
             // 
             this.lblDealerHandValue.AutoSize = true;
-            this.lblDealerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDealerHandValue.Location = new System.Drawing.Point(133, 36);
+            this.lblDealerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDealerHandValue.ForeColor = System.Drawing.Color.Yellow;
+            this.lblDealerHandValue.Location = new System.Drawing.Point(139, 36);
             this.lblDealerHandValue.Name = "lblDealerHandValue";
-            this.lblDealerHandValue.Size = new System.Drawing.Size(22, 24);
+            this.lblDealerHandValue.Size = new System.Drawing.Size(21, 20);
             this.lblDealerHandValue.TabIndex = 10;
             this.lblDealerHandValue.Tag = "test";
             this.lblDealerHandValue.Text = "--";
@@ -270,10 +275,11 @@
             // lblPlayerHandValue
             // 
             this.lblPlayerHandValue.AutoSize = true;
-            this.lblPlayerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayerHandValue.Location = new System.Drawing.Point(139, 215);
+            this.lblPlayerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerHandValue.ForeColor = System.Drawing.Color.Yellow;
+            this.lblPlayerHandValue.Location = new System.Drawing.Point(139, 218);
             this.lblPlayerHandValue.Name = "lblPlayerHandValue";
-            this.lblPlayerHandValue.Size = new System.Drawing.Size(22, 24);
+            this.lblPlayerHandValue.Size = new System.Drawing.Size(21, 20);
             this.lblPlayerHandValue.TabIndex = 11;
             this.lblPlayerHandValue.Text = "--";
             // 
@@ -307,9 +313,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(334, 41);
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Yellow;
+            this.label1.Location = new System.Drawing.Point(318, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(26, 13);
+            this.label1.Size = new System.Drawing.Size(41, 19);
             this.label1.TabIndex = 15;
             this.label1.Text = "Bet:";
             // 
@@ -317,6 +325,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Green;
             this.ClientSize = new System.Drawing.Size(725, 411);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBet);
