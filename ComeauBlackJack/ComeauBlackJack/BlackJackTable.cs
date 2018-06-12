@@ -61,6 +61,7 @@ namespace ComeauBlackJack
 
         private void ChangePlayer_Click(object sender, EventArgs e)
         {
+            // Change the current player.
             string newPlayerName = "";
             string loadPlayerName = "";
             bool getScore = false;
@@ -88,6 +89,7 @@ namespace ComeauBlackJack
                         }
                         else if (loadPlayerName.Length > 0)
                         {
+                            // Load an existing player from the score file.
                             tablePlayer.PlayerName = loadPlayerName;
                             if (getScore)
                             {
@@ -258,6 +260,8 @@ namespace ComeauBlackJack
             try
             {
                 ClearPlayerHands();
+                PlayerPicture.Image = null;
+                DealerPicture.Image = null;
 
                 // If the current deck is getting low, shuffle.
                 if (currentDeck.RemainingCards.Count < 18)
@@ -359,11 +363,11 @@ namespace ComeauBlackJack
         {
             try
             {
+                // Adjust player's bank amount.
                 BettingPlayer.BankAmount += AdjAmount;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Error ...");
             }
         }
@@ -374,8 +378,15 @@ namespace ComeauBlackJack
 
             try
             {
+                // Get the bet amount from the form.
                 betAmount = double.Parse(txtBet.Text);
 
+                // If either player has won, show the dealer's hand.
+                if (status <= HighPlayer.Push)
+                    ShowDealerHand();
+
+                // Display the appropriate message and adjust the bank
+                // depending on the winning player.
                 switch (status)
                 {
                     case HighPlayer.DealerWin:
@@ -383,6 +394,7 @@ namespace ComeauBlackJack
                         ProcessBet(tablePlayer, (betAmount * -1));
                         break;
                     case HighPlayer.DealerBlackJack:
+                        DealerPicture.Image = MiscImagery.Images["Blackjack.jpg"];
                         MessageBox.Show("Dealer has Blackjack.");
                         ProcessBet(tablePlayer, (betAmount * -1));
                         break;
@@ -391,6 +403,7 @@ namespace ComeauBlackJack
                         ProcessBet(tablePlayer, (betAmount));
                         break;
                     case HighPlayer.PlayerBlackJack:
+                        PlayerPicture.Image = MiscImagery.Images["Blackjack.jpg"];
                         MessageBox.Show("BLACKJACK!");
                         ProcessBet(tablePlayer, (betAmount));
                         break;
@@ -402,11 +415,10 @@ namespace ComeauBlackJack
                         break;
                 }
 
-                if (status <= HighPlayer.Push)
-                    ShowDealerHand();
-
+                // Update the player stats on the form.
                 UpdatePlayerStats();
 
+                // Adjust the controls.
                 if (Turn == PlayerTurn.Close)
                 {
                     txtBet.ReadOnly = false;
@@ -427,6 +439,7 @@ namespace ComeauBlackJack
                 foreach (PlayingCard pCard in dealerPlayer.PlayerHand)
                     pCard.FaceDown = false;
 
+                // Show the dealer's entire hand.
                 DisplayHand(dealerPlayer);
             }
             catch (Exception ex)
@@ -437,13 +450,16 @@ namespace ComeauBlackJack
 
         private HighPlayer EvaluateHands()
         {
-
+            // Compare the player hands to determine the result
+            // of the play.
             HighPlayer result = HighPlayer.Undetermined;
             int playerHand = tablePlayer.GetHandValue();
             int dealerHand = dealerPlayer.GetHandValue();
 
             try
             {
+                // If it's no longer the table player's turn,
+                // show the dealer hand.
                 if(Turn < PlayerTurn.Player)
                     ShowDealerHand();
 
@@ -461,9 +477,17 @@ namespace ComeauBlackJack
                 if (result == HighPlayer.Undetermined)
                 {
                     if (playerHand > BLACKJACK && dealerHand < BLACKJACK)
+                    { 
+                        // Table player busts.
                         result = HighPlayer.DealerWin;
+                        PlayerPicture.Image = MiscImagery.Images["Bust.jpg"];
+                    }
                     else if (dealerHand > BLACKJACK && playerHand < BLACKJACK)
+                    { 
+                        // Dealer busts.
                         result = HighPlayer.PlayerWin;
+                        DealerPicture.Image = MiscImagery.Images["Bust.jpg"];
+                    }
 
                     if (result != HighPlayer.Undetermined) Turn = PlayerTurn.Close;
                 }

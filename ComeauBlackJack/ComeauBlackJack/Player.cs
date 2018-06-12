@@ -10,16 +10,13 @@ using System.Drawing;
 
 namespace ComeauBlackJack
 {
-    public class Player
+    public class Player : IEnumerable
     {
         // Class to store player details including the player's hand.
         private List<PlayingCard> cPlayerhand = new List<PlayingCard>();
         private string cName;
         private double cBank;
         private bool cDealer;
-
-        
-
         
         public List<PlayingCard> PlayerHand
         {
@@ -103,28 +100,10 @@ namespace ComeauBlackJack
             return returnValue;
         }
 
-        public void DiscardHand()
-        {
-            try
-            {
-                foreach(PlayingCard pCard in cPlayerhand)
-                {
-                    //TODO:  Implement DiscardHand property.
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-
-        }
-
         public void SavePlayerStats()
         { 
             
-
+            //TODO:  Write routine to save player stats.
         }
 
         public IEnumerator<string> GetEnumerator()
@@ -140,15 +119,10 @@ namespace ComeauBlackJack
             }
         }
 
-        ~Player()
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
-
-
+            return this.GetEnumerator();
         }
-
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //     return this.GetEnumerator();
-        //}
     }
 }

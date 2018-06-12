@@ -53,7 +53,12 @@
             this.btnStand = new System.Windows.Forms.Button();
             this.txtBet = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.MiscImagery = new System.Windows.Forms.ImageList(this.components);
+            this.DealerPicture = new System.Windows.Forms.PictureBox();
+            this.PlayerPicture = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // SourceDeck
@@ -124,7 +129,7 @@
             this.gameToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(725, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(762, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -164,7 +169,7 @@
             // dealToolStripMenuItem
             // 
             this.dealToolStripMenuItem.Name = "dealToolStripMenuItem";
-            this.dealToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dealToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.dealToolStripMenuItem.Text = "&Deal";
             this.dealToolStripMenuItem.Click += new System.EventHandler(this.DealHand_Click);
             // 
@@ -172,7 +177,7 @@
             // 
             this.hitToolStripMenuItem.Enabled = false;
             this.hitToolStripMenuItem.Name = "hitToolStripMenuItem";
-            this.hitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hitToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.hitToolStripMenuItem.Text = "&Hit";
             this.hitToolStripMenuItem.Click += new System.EventHandler(this.HitButton_Click);
             // 
@@ -180,15 +185,16 @@
             // 
             this.standToolStripMenuItem.Enabled = false;
             this.standToolStripMenuItem.Name = "standToolStripMenuItem";
-            this.standToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.standToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.standToolStripMenuItem.Text = "&Stand";
             this.standToolStripMenuItem.Click += new System.EventHandler(this.StandButton_Click);
             // 
             // btnLoadPlayer
             // 
-            this.btnLoadPlayer.Location = new System.Drawing.Point(537, 82);
+            this.btnLoadPlayer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadPlayer.Location = new System.Drawing.Point(564, 82);
             this.btnLoadPlayer.Name = "btnLoadPlayer";
-            this.btnLoadPlayer.Size = new System.Drawing.Size(95, 23);
+            this.btnLoadPlayer.Size = new System.Drawing.Size(133, 27);
             this.btnLoadPlayer.TabIndex = 2;
             this.btnLoadPlayer.Text = "Change Player";
             this.btnLoadPlayer.UseVisualStyleBackColor = true;
@@ -199,7 +205,7 @@
             this.lblPlayerName.AutoSize = true;
             this.lblPlayerName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerName.ForeColor = System.Drawing.Color.Yellow;
-            this.lblPlayerName.Location = new System.Drawing.Point(537, 34);
+            this.lblPlayerName.Location = new System.Drawing.Point(564, 34);
             this.lblPlayerName.Name = "lblPlayerName";
             this.lblPlayerName.Size = new System.Drawing.Size(94, 19);
             this.lblPlayerName.TabIndex = 3;
@@ -210,7 +216,7 @@
             this.lblScore.AutoSize = true;
             this.lblScore.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScore.ForeColor = System.Drawing.Color.Yellow;
-            this.lblScore.Location = new System.Drawing.Point(537, 60);
+            this.lblScore.Location = new System.Drawing.Point(564, 60);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(60, 19);
             this.lblScore.TabIndex = 4;
@@ -218,25 +224,25 @@
             // 
             // panelPlayer
             // 
-            this.panelPlayer.Location = new System.Drawing.Point(75, 243);
+            this.panelPlayer.Location = new System.Drawing.Point(102, 243);
             this.panelPlayer.Name = "panelPlayer";
             this.panelPlayer.Size = new System.Drawing.Size(451, 145);
             this.panelPlayer.TabIndex = 5;
             // 
             // panelDealer
             // 
-            this.panelDealer.Location = new System.Drawing.Point(74, 63);
+            this.panelDealer.Location = new System.Drawing.Point(101, 63);
             this.panelDealer.Name = "panelDealer";
             this.panelDealer.Size = new System.Drawing.Size(451, 145);
             this.panelDealer.TabIndex = 6;
             // 
             // btnDeal
             // 
-            this.btnDeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeal.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeal.ForeColor = System.Drawing.Color.Red;
-            this.btnDeal.Location = new System.Drawing.Point(532, 262);
+            this.btnDeal.Location = new System.Drawing.Point(564, 259);
             this.btnDeal.Name = "btnDeal";
-            this.btnDeal.Size = new System.Drawing.Size(95, 23);
+            this.btnDeal.Size = new System.Drawing.Size(95, 26);
             this.btnDeal.TabIndex = 3;
             this.btnDeal.Text = "Deal";
             this.btnDeal.UseVisualStyleBackColor = true;
@@ -247,7 +253,7 @@
             this.lblDealer.AutoSize = true;
             this.lblDealer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDealer.ForeColor = System.Drawing.Color.Yellow;
-            this.lblDealer.Location = new System.Drawing.Point(71, 37);
+            this.lblDealer.Location = new System.Drawing.Point(98, 37);
             this.lblDealer.Name = "lblDealer";
             this.lblDealer.Size = new System.Drawing.Size(64, 19);
             this.lblDealer.TabIndex = 8;
@@ -258,7 +264,7 @@
             this.lblPlayer.AutoSize = true;
             this.lblPlayer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayer.ForeColor = System.Drawing.Color.Yellow;
-            this.lblPlayer.Location = new System.Drawing.Point(71, 218);
+            this.lblPlayer.Location = new System.Drawing.Point(98, 218);
             this.lblPlayer.Name = "lblPlayer";
             this.lblPlayer.Size = new System.Drawing.Size(67, 19);
             this.lblPlayer.TabIndex = 9;
@@ -269,7 +275,7 @@
             this.lblDealerHandValue.AutoSize = true;
             this.lblDealerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDealerHandValue.ForeColor = System.Drawing.Color.Yellow;
-            this.lblDealerHandValue.Location = new System.Drawing.Point(139, 36);
+            this.lblDealerHandValue.Location = new System.Drawing.Point(166, 36);
             this.lblDealerHandValue.Name = "lblDealerHandValue";
             this.lblDealerHandValue.Size = new System.Drawing.Size(21, 20);
             this.lblDealerHandValue.TabIndex = 10;
@@ -281,7 +287,7 @@
             this.lblPlayerHandValue.AutoSize = true;
             this.lblPlayerHandValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerHandValue.ForeColor = System.Drawing.Color.Yellow;
-            this.lblPlayerHandValue.Location = new System.Drawing.Point(139, 218);
+            this.lblPlayerHandValue.Location = new System.Drawing.Point(166, 218);
             this.lblPlayerHandValue.Name = "lblPlayerHandValue";
             this.lblPlayerHandValue.Size = new System.Drawing.Size(21, 20);
             this.lblPlayerHandValue.TabIndex = 11;
@@ -290,9 +296,10 @@
             // btnHit
             // 
             this.btnHit.Enabled = false;
-            this.btnHit.Location = new System.Drawing.Point(532, 308);
+            this.btnHit.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHit.Location = new System.Drawing.Point(564, 305);
             this.btnHit.Name = "btnHit";
-            this.btnHit.Size = new System.Drawing.Size(95, 23);
+            this.btnHit.Size = new System.Drawing.Size(95, 26);
             this.btnHit.TabIndex = 4;
             this.btnHit.Text = "Hit";
             this.btnHit.UseVisualStyleBackColor = true;
@@ -301,9 +308,10 @@
             // btnStand
             // 
             this.btnStand.Enabled = false;
-            this.btnStand.Location = new System.Drawing.Point(532, 349);
+            this.btnStand.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStand.Location = new System.Drawing.Point(564, 346);
             this.btnStand.Name = "btnStand";
-            this.btnStand.Size = new System.Drawing.Size(95, 23);
+            this.btnStand.Size = new System.Drawing.Size(95, 26);
             this.btnStand.TabIndex = 5;
             this.btnStand.Text = "Stand";
             this.btnStand.UseVisualStyleBackColor = true;
@@ -311,9 +319,11 @@
             // 
             // txtBet
             // 
-            this.txtBet.Location = new System.Drawing.Point(446, 37);
+            this.txtBet.BackColor = System.Drawing.Color.PaleGreen;
+            this.txtBet.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBet.Location = new System.Drawing.Point(473, 33);
             this.txtBet.Name = "txtBet";
-            this.txtBet.Size = new System.Drawing.Size(79, 20);
+            this.txtBet.Size = new System.Drawing.Size(79, 26);
             this.txtBet.TabIndex = 1;
             // 
             // label1
@@ -321,18 +331,45 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(398, 37);
+            this.label1.Location = new System.Drawing.Point(409, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 19);
+            this.label1.Size = new System.Drawing.Size(58, 19);
             this.label1.TabIndex = 15;
-            this.label1.Text = "Bet:";
+            this.label1.Text = "Bet:  $";
+            // 
+            // MiscImagery
+            // 
+            this.MiscImagery.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("MiscImagery.ImageStream")));
+            this.MiscImagery.TransparentColor = System.Drawing.Color.Transparent;
+            this.MiscImagery.Images.SetKeyName(0, "BlackJack.jpg");
+            this.MiscImagery.Images.SetKeyName(1, "Bust.jpg");
+            // 
+            // DealerPicture
+            // 
+            this.DealerPicture.Location = new System.Drawing.Point(11, 63);
+            this.DealerPicture.Name = "DealerPicture";
+            this.DealerPicture.Size = new System.Drawing.Size(85, 85);
+            this.DealerPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DealerPicture.TabIndex = 16;
+            this.DealerPicture.TabStop = false;
+            // 
+            // PlayerPicture
+            // 
+            this.PlayerPicture.Location = new System.Drawing.Point(11, 243);
+            this.PlayerPicture.Name = "PlayerPicture";
+            this.PlayerPicture.Size = new System.Drawing.Size(85, 85);
+            this.PlayerPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PlayerPicture.TabIndex = 17;
+            this.PlayerPicture.TabStop = false;
             // 
             // BlackJackTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Green;
-            this.ClientSize = new System.Drawing.Size(725, 411);
+            this.ClientSize = new System.Drawing.Size(762, 411);
+            this.Controls.Add(this.PlayerPicture);
+            this.Controls.Add(this.DealerPicture);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBet);
             this.Controls.Add(this.btnStand);
@@ -354,6 +391,8 @@
             this.Load += new System.EventHandler(this.BlackJackTable_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,6 +423,9 @@
         private System.Windows.Forms.Button btnStand;
         private System.Windows.Forms.TextBox txtBet;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ImageList MiscImagery;
+        private System.Windows.Forms.PictureBox DealerPicture;
+        private System.Windows.Forms.PictureBox PlayerPicture;
     }
 }
 
