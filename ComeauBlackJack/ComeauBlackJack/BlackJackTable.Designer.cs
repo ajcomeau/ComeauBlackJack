@@ -125,7 +125,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(725, 24);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
@@ -140,14 +140,14 @@
             // changePlayerToolStripMenuItem
             // 
             this.changePlayerToolStripMenuItem.Name = "changePlayerToolStripMenuItem";
-            this.changePlayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changePlayerToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.changePlayerToolStripMenuItem.Text = "Change &Player";
             this.changePlayerToolStripMenuItem.Click += new System.EventHandler(this.ChangePlayer_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -170,6 +170,7 @@
             // 
             // hitToolStripMenuItem
             // 
+            this.hitToolStripMenuItem.Enabled = false;
             this.hitToolStripMenuItem.Name = "hitToolStripMenuItem";
             this.hitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hitToolStripMenuItem.Text = "&Hit";
@@ -177,6 +178,7 @@
             // 
             // standToolStripMenuItem
             // 
+            this.standToolStripMenuItem.Enabled = false;
             this.standToolStripMenuItem.Name = "standToolStripMenuItem";
             this.standToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.standToolStripMenuItem.Text = "&Stand";
@@ -197,7 +199,7 @@
             this.lblPlayerName.AutoSize = true;
             this.lblPlayerName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerName.ForeColor = System.Drawing.Color.Yellow;
-            this.lblPlayerName.Location = new System.Drawing.Point(537, 33);
+            this.lblPlayerName.Location = new System.Drawing.Point(537, 34);
             this.lblPlayerName.Name = "lblPlayerName";
             this.lblPlayerName.Size = new System.Drawing.Size(94, 19);
             this.lblPlayerName.TabIndex = 3;
@@ -208,7 +210,7 @@
             this.lblScore.AutoSize = true;
             this.lblScore.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScore.ForeColor = System.Drawing.Color.Yellow;
-            this.lblScore.Location = new System.Drawing.Point(537, 59);
+            this.lblScore.Location = new System.Drawing.Point(537, 60);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(60, 19);
             this.lblScore.TabIndex = 4;
@@ -216,24 +218,26 @@
             // 
             // panelPlayer
             // 
-            this.panelPlayer.Location = new System.Drawing.Point(75, 242);
+            this.panelPlayer.Location = new System.Drawing.Point(75, 243);
             this.panelPlayer.Name = "panelPlayer";
             this.panelPlayer.Size = new System.Drawing.Size(451, 145);
             this.panelPlayer.TabIndex = 5;
             // 
             // panelDealer
             // 
-            this.panelDealer.Location = new System.Drawing.Point(74, 62);
+            this.panelDealer.Location = new System.Drawing.Point(74, 63);
             this.panelDealer.Name = "panelDealer";
             this.panelDealer.Size = new System.Drawing.Size(451, 145);
             this.panelDealer.TabIndex = 6;
             // 
             // btnDeal
             // 
-            this.btnDeal.Location = new System.Drawing.Point(451, 36);
+            this.btnDeal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeal.ForeColor = System.Drawing.Color.Red;
+            this.btnDeal.Location = new System.Drawing.Point(532, 262);
             this.btnDeal.Name = "btnDeal";
-            this.btnDeal.Size = new System.Drawing.Size(75, 23);
-            this.btnDeal.TabIndex = 7;
+            this.btnDeal.Size = new System.Drawing.Size(95, 23);
+            this.btnDeal.TabIndex = 3;
             this.btnDeal.Text = "Deal";
             this.btnDeal.UseVisualStyleBackColor = true;
             this.btnDeal.Click += new System.EventHandler(this.DealHand_Click);
@@ -243,7 +247,7 @@
             this.lblDealer.AutoSize = true;
             this.lblDealer.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDealer.ForeColor = System.Drawing.Color.Yellow;
-            this.lblDealer.Location = new System.Drawing.Point(71, 36);
+            this.lblDealer.Location = new System.Drawing.Point(71, 37);
             this.lblDealer.Name = "lblDealer";
             this.lblDealer.Size = new System.Drawing.Size(64, 19);
             this.lblDealer.TabIndex = 8;
@@ -285,37 +289,39 @@
             // 
             // btnHit
             // 
-            this.btnHit.Location = new System.Drawing.Point(532, 291);
+            this.btnHit.Enabled = false;
+            this.btnHit.Location = new System.Drawing.Point(532, 308);
             this.btnHit.Name = "btnHit";
             this.btnHit.Size = new System.Drawing.Size(95, 23);
-            this.btnHit.TabIndex = 12;
+            this.btnHit.TabIndex = 4;
             this.btnHit.Text = "Hit";
             this.btnHit.UseVisualStyleBackColor = true;
             this.btnHit.Click += new System.EventHandler(this.HitButton_Click);
             // 
             // btnStand
             // 
-            this.btnStand.Location = new System.Drawing.Point(532, 320);
+            this.btnStand.Enabled = false;
+            this.btnStand.Location = new System.Drawing.Point(532, 349);
             this.btnStand.Name = "btnStand";
             this.btnStand.Size = new System.Drawing.Size(95, 23);
-            this.btnStand.TabIndex = 13;
+            this.btnStand.TabIndex = 5;
             this.btnStand.Text = "Stand";
             this.btnStand.UseVisualStyleBackColor = true;
             this.btnStand.Click += new System.EventHandler(this.StandButton_Click);
             // 
             // txtBet
             // 
-            this.txtBet.Location = new System.Drawing.Point(366, 38);
+            this.txtBet.Location = new System.Drawing.Point(446, 37);
             this.txtBet.Name = "txtBet";
             this.txtBet.Size = new System.Drawing.Size(79, 20);
-            this.txtBet.TabIndex = 14;
+            this.txtBet.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(318, 38);
+            this.label1.Location = new System.Drawing.Point(398, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 19);
             this.label1.TabIndex = 15;

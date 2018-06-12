@@ -18,6 +18,9 @@ namespace ComeauBlackJack
         private double cBank;
         private bool cDealer;
 
+        
+
+        
         public List<PlayingCard> PlayerHand
         {
             get { return cPlayerhand; }
@@ -106,7 +109,7 @@ namespace ComeauBlackJack
             {
                 foreach(PlayingCard pCard in cPlayerhand)
                 {
-                    
+                    //TODO:  Implement DiscardHand property.
                 }
             }
             catch (Exception ex)
@@ -135,6 +138,12 @@ namespace ComeauBlackJack
 
                 yield return i.CardName;
             }
+        }
+
+        ~Player()
+        {
+
+
         }
 
         //IEnumerator IEnumerable.GetEnumerator()

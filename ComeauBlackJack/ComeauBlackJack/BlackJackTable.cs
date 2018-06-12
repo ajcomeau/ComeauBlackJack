@@ -12,18 +12,19 @@ namespace ComeauBlackJack
 {
     public partial class BlackJackTable : Form
     {
+
         // Enumeration to indicate player with
         // higher score or winning hand.
         enum HighPlayer
         {
-            Undetermined,
-            Dealer,
             DealerWin,
             DealerBlackJack,
-            Player,
             PlayerWin,
             PlayerBlackJack,
-            Push
+            Push,
+            Dealer,
+            Player,
+            Undetermined,
         }
 
         // Enumeration to indicate the stage
@@ -35,7 +36,7 @@ namespace ComeauBlackJack
             Close
         }
 
-        // Maintain current player and deck for access.
+        // Maintain current players and deck for access.
         Player tablePlayer = new Player("Guest", 1000, false);
         Player dealerPlayer = new Player("Dealer", 1000, true);
         ActiveDeck currentDeck;
@@ -56,6 +57,56 @@ namespace ComeauBlackJack
             // the player stats in the corner.
             currentDeck = new ActiveDeck(SourceDeck, false);
             UpdatePlayerStats();
+        }
+
+        private void ChangePlayer_Click(object sender, EventArgs e)
+        {
+            string newPlayerName = "";
+            string loadPlayerName = "";
+            bool getScore = false;
+
+            try
+            {
+                // Clear the table and start a new game.
+                ClearTable();
+
+                // Open the player selection dialog.
+                using (PlayerLoad plForm = new PlayerLoad())
+                {
+                    if (plForm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        // Get the dialog values.
+                        newPlayerName = plForm.txtPlayerName.Text;
+                        loadPlayerName = plForm.LoadedPlayerName;
+                        getScore = plForm.chkGetScore.Checked;
+
+                        // Give precedence to a new player name.
+                        if (newPlayerName.Length > 0)
+                        {
+                            tablePlayer.PlayerName = newPlayerName;
+                            tablePlayer.BankAmount = 1000;
+                        }
+                        else if (loadPlayerName.Length > 0)
+                        {
+                            tablePlayer.PlayerName = loadPlayerName;
+                            if (getScore)
+                            {
+                                tablePlayer.BankAmount = plForm.PlayerScore;
+                            }
+                        }
+                    }
+
+                }
+
+                // Update the player statistics on the form.
+                UpdatePlayerStats();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...");
+            }
+
         }
 
         private void UpdatePlayerStats()
@@ -146,62 +197,6 @@ namespace ComeauBlackJack
 
         }
 
-        private void ChangePlayer_Click(object sender, EventArgs e)
-        {
-            string newPlayerName = "";
-            string loadPlayerName = "";
-            bool getScore = false;
-
-            try
-            {
-                // Clear the table and start a new game.
-                ClearTable();
-
-                // Open the player selection dialog.
-                using (PlayerLoad plForm = new PlayerLoad())
-                {
-                    if (plForm.ShowDialog(this) == DialogResult.OK)
-                    {
-                        // Get the dialog values.
-                        newPlayerName = plForm.txtPlayerName.Text;
-                        loadPlayerName = plForm.LoadedPlayerName;
-                        getScore = plForm.chkGetScore.Checked;
-
-                        // Give precedence to a new player name.
-                        if (newPlayerName.Length > 0)
-                        {
-                            tablePlayer.PlayerName = newPlayerName;
-                            tablePlayer.BankAmount = 1000;
-                        }
-                        else if (loadPlayerName.Length > 0)
-                        {
-                            tablePlayer.PlayerName = loadPlayerName;
-                            if (getScore)
-                            {
-                                tablePlayer.BankAmount = plForm.PlayerScore;
-                            }
-                        }
-                    }
-
-                }
-
-                // Update the player statistics on the form.
-                UpdatePlayerStats();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error ...");
-            }
-
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-
         private void ClearPlayerHands()
         {
             try
@@ -238,6 +233,24 @@ namespace ComeauBlackJack
             }
         }
 
+        private void DealButtonSwitch()
+        {
+            try
+            {
+                btnDeal.Enabled = !btnDeal.Enabled;
+                btnHit.Enabled = !btnHit.Enabled;
+                btnStand.Enabled = !btnStand.Enabled;
+                dealToolStripMenuItem.Enabled = !dealToolStripMenuItem.Enabled;
+                hitToolStripMenuItem.Enabled = !hitToolStripMenuItem.Enabled;
+                standToolStripMenuItem.Enabled = !standToolStripMenuItem.Enabled;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...");
+            }
+            
+        }
         private void DealHand_Click(object sender, EventArgs e)
         {
             double playerBet = 0;
@@ -254,6 +267,7 @@ namespace ComeauBlackJack
 
                 if (double.TryParse(txtBet.Text, out playerBet))
                 {
+                    DealButtonSwitch();
                     txtBet.ReadOnly = true;
 
                     // Deal two cards face up to the player.
@@ -275,7 +289,7 @@ namespace ComeauBlackJack
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a numeric value for the bet.");
+                    MessageBox.Show("Please enter a valid amount for the bet.");
                     txtBet.Text = "";
                 }
             }
@@ -287,15 +301,17 @@ namespace ComeauBlackJack
 
         private void HitButton_Click(object sender, EventArgs e)
         {
+            HighPlayer evalResult;
             try
             {
                 // Deal a card to the player at the table and redipslay hand.
                 currentDeck.DealCards(1, tablePlayer, false);
                 DisplayHand(tablePlayer);
-                HandProgress(EvaluateHands());
+                evalResult = EvaluateHands();
+                HandProgress(evalResult);
 
                 // If the dealer won, display the hand.
-                if (Turn == PlayerTurn.Close)
+                if (evalResult < HighPlayer.PlayerWin)
                     DisplayHand(dealerPlayer);
             }
             catch (Exception ex)
@@ -313,10 +329,7 @@ namespace ComeauBlackJack
             {
                 // Turn it over to the dealer to complete the hand.
                 Turn = PlayerTurn.Dealer;
-
-                // Turn the dealer's cards face up.
-                foreach (PlayingCard pCard in dealerPlayer.PlayerHand)
-                    pCard.FaceDown = false;
+                ShowDealerHand();
 
                 // Get the new hand value.
                 dealerHandValue = dealerPlayer.GetHandValue();
@@ -389,7 +402,32 @@ namespace ComeauBlackJack
                         break;
                 }
 
+                if (status <= HighPlayer.Push)
+                    ShowDealerHand();
+
                 UpdatePlayerStats();
+
+                if (Turn == PlayerTurn.Close)
+                {
+                    txtBet.ReadOnly = false;
+                    DealButtonSwitch();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...");
+            }
+        }
+
+        private void ShowDealerHand()
+        {
+            try
+            {
+                // Turn the dealer's cards face up.
+                foreach (PlayingCard pCard in dealerPlayer.PlayerHand)
+                    pCard.FaceDown = false;
+
+                DisplayHand(dealerPlayer);
             }
             catch (Exception ex)
             {
@@ -406,11 +444,14 @@ namespace ComeauBlackJack
 
             try
             {
+                if(Turn < PlayerTurn.Player)
+                    ShowDealerHand();
+
                 // Look for a push.
                 if (playerHand == dealerHand)
                 {
                     result = HighPlayer.Push;
-
+                    // If the hands are 21 or higher, end.
                     if (playerHand >= BLACKJACK)
                         Turn = PlayerTurn.Close;
                 }
@@ -428,7 +469,6 @@ namespace ComeauBlackJack
                 }
 
                 // Look for a player with 21.
-
                 if (result == HighPlayer.Undetermined)
                 {
                     if (playerHand == BLACKJACK || dealerHand == BLACKJACK)
@@ -448,7 +488,9 @@ namespace ComeauBlackJack
                 // The dealer must stand on 17 or greater.
                 if (Turn == PlayerTurn.Dealer && dealerHand > 16)
                 {
-                    result = (playerHand > dealerHand) ? HighPlayer.PlayerWin : HighPlayer.DealerWin;
+                    if (result != HighPlayer.Push)
+                        result = (playerHand > dealerHand) ? HighPlayer.PlayerWin : HighPlayer.DealerWin;
+
                     Turn = PlayerTurn.Close;
                 }
 
@@ -462,6 +504,11 @@ namespace ComeauBlackJack
 
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Exit the application.
+            Application.Exit();
+        }
 
 
     }
